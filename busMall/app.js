@@ -1,5 +1,5 @@
 'use strict';
-
+var totalClick= 0;
 var leftImageEl = document.getElementById('left');
 var centerImageEl = document.getElementById('center');
 var rightImageEl = document.getElementById('right');
@@ -43,8 +43,8 @@ function renderProducts(){
   while (uniquePicsArray[0] === uniquePicsArray[1]){
     uniquePicsArray[1] = makeRandom();
   }
-  while (uniquePicsArray[1] === uniquePicsArray[2]){
-    uniquePicsArray[2] = makeRandom();
+  while(uniquePicsArray[1] === uniquePicsArray[2]){
+    uniquePicsArray[1] = makeRandom();
   }
   while (uniquePicsArray[0] === uniquePicsArray[2]){
     uniquePicsArray[2] = makeRandom();
@@ -79,6 +79,7 @@ new Product('chair');
 
 
 
+
 function handleClick(){
   var chosenImage = event.target.title;
   console.log('chosenImage: ', chosenImage);
@@ -87,16 +88,21 @@ function handleClick(){
     if(allProducts[i].name === chosenImage){
       allProducts[i].clicks++;
     }
+    if(totalClick === 24){
+      containerEl.removeEventListener('click', handleClick, true);
+
+    }
+
+    renderProducts();
 
   }
+  totalClick++;
 
-
-  renderProducts();
 }
+
+
 
 containerEl.addEventListener('click', handleClick, true);
 
-
-
-
 renderProducts();
+
