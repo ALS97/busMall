@@ -1,5 +1,6 @@
 'use strict';
-
+var totalClick= 0;
+// allProducts.tallyEl = document.getElementById('tally');
 var leftImageEl = document.getElementById('left');
 var centerImageEl = document.getElementById('center');
 var rightImageEl = document.getElementById('right');
@@ -43,31 +44,32 @@ function renderProducts(){
   while (uniquePicsArray[0] === uniquePicsArray[1]){
     uniquePicsArray[1] = makeRandom();
   }
+  while(uniquePicsArray[0] === uniquePicsArray[2]){
+    uniquePicsArray[2] = makeRandom();
+  }
   while (uniquePicsArray[1] === uniquePicsArray[2]){
     uniquePicsArray[2] = makeRandom();
   }
-  while (uniquePicsArray[0] === uniquePicsArray[2]){
-    uniquePicsArray[2] = makeRandom();
-  }
 
 
-  allProducts[uniquePicsArray[0]].views++ ;
+  allProducts[uniquePicsArray[0]].views++;
   leftImageEl.src = allProducts[uniquePicsArray[0]].path;
   leftImageEl.title = allProducts[uniquePicsArray[0]].name;
   leftImageEl.name = allProducts[uniquePicsArray[0]].name;
 
 
 
-  allProducts[uniquePicsArray[1]].views++ ;
+  allProducts[uniquePicsArray[1]].views++;
   centerImageEl.src = allProducts[uniquePicsArray[1]].path;
   centerImageEl.title = allProducts[uniquePicsArray[1]].name;
   centerImageEl.name = allProducts[uniquePicsArray[1]].name;
 
-  allProducts[uniquePicsArray[2]].views++ ;
+  allProducts[uniquePicsArray[2]].views++;
   rightImageEl.src = allProducts[uniquePicsArray[2]].path;
   rightImageEl.title = allProducts[uniquePicsArray[2]].name;
   rightImageEl.name = allProducts[uniquePicsArray[2]].name;
 }
+
 new Product('bag');
 new Product('banana');
 new Product('bathroom');
@@ -75,6 +77,7 @@ new Product('boots');
 new Product('breakfast');
 new Product('bubblegum');
 new Product('chair');
+
 
 
 
@@ -87,16 +90,40 @@ function handleClick(){
     if(allProducts[i].name === chosenImage){
       allProducts[i].clicks++;
     }
+    if(totalClick === 24){
+      containerEl.removeEventListener('click', handleClick, true);
+
+    }
+    
+    renderProducts();
+    parentEl.innerHTML= '';
+    render();
 
   }
-
-
-  renderProducts();
+  totalClick++; 
 }
+
+
+
 
 containerEl.addEventListener('click', handleClick, true);
 
 
-
-
 renderProducts();
+var parentEl = document.getElementById('parentElement');
+
+var child = document.createElement('h1');
+child.textContent = 'Data: ';
+parentEl.appendChild(child);
+function render() {
+  for( var i = 0; i < allProducts.length; i++ ) {
+    var childEl = document.createElement('li');
+    childEl.textContent = `Product...${allProducts[i].name}     Views... ${allProducts[i].views}     Popularity...${allProducts[i].clicks}`;
+    parentEl.appendChild(childEl);
+  }
+
+
+}
+
+render();
+
