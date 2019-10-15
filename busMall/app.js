@@ -92,15 +92,15 @@ function handleClick(){
     }
     if(totalClick === 24){
       containerEl.removeEventListener('click', handleClick, true);
-
+      containerEl.remove();
     }
-    
+
     renderProducts();
     parentEl.innerHTML= '';
     render();
 
   }
-  totalClick++; 
+  totalClick++;
 }
 
 
@@ -110,6 +110,25 @@ containerEl.addEventListener('click', handleClick, true);
 
 
 renderProducts();
+// allProducts.nameData = [];
+// allProducts.viewsData = [];
+// allProducts.clicksData = [];
+// var getChartData = function(){
+//   for (var i = 0; i< allProducts.length; i++){
+//     allProducts.nameData.push(allProducts[i].name);
+//     allProducts.viewsData.push(allProducts[i].views);
+//     allProducts.clicksData.push(allProducts[i].clicks);
+//   }
+// }
+// allProducts.data = {
+//   labels: allProducts.nameData,
+//   datasets:[{
+//     fillColor:
+
+//   }
+//   ]
+
+// }
 var parentEl = document.getElementById('parentElement');
 
 var child = document.createElement('h1');
