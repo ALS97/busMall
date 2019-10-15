@@ -1,4 +1,7 @@
-
+h1{
+    font-size: 40pt;
+    font-weight: bold;
+}
 body{
     width:960px;
     background-color:antiquewhite;
