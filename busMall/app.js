@@ -1,12 +1,10 @@
 'use strict';
 var totalClick = 0;
-allProducts = [];
-// allProducts.tallyEl = document.getElementById('tally');
 var leftImageEl = document.getElementById('left');
 var centerImageEl = document.getElementById('center');
 var rightImageEl = document.getElementById('right');
 var containerEl = document.getElementById('image_container');
-
+// allProducts.tallyEl = document.getElementById('tally');
 
 
 // leftImageEl.src = 'images/';
@@ -70,7 +68,7 @@ function makeRandom() {
 //   rightImageEl.src = allProducts[uniquePicsArray[2]].path;
 //   rightImageEl.title = allProducts[uniquePicsArray[2]].name;
 //   rightImageEl.name = allProducts[uniquePicsArray[2]].name;
-// }
+//
 
 new Product('bag');
 new Product('banana');
@@ -82,7 +80,7 @@ new Product('chair');
 
 
 
-//getChartData();
+// getChartData();
 function uniqueArrayGenerator() {
   while (allProducts.uniqueArray.length < 7) {
     var random = makeRandom();
@@ -101,6 +99,7 @@ function displayPics() {
     console.log('allProducts:', Product.pics[i]);
     Product.pics[i].src = allProducts[temp].path;
     Product.pics[i].id = allProducts[temp].name;
+    Product.pics[i].title = allProducts[temp].name;
     allProducts[temp].views += 1;
 
   }
@@ -111,28 +110,28 @@ Product.pics = [
   rightImageEl
 
 ];
-
-
 function handleClick() {
   var chosenImage = event.target.title;
   console.log('chosenImage: ', chosenImage);
+  console.log(event.target);
 
   for (var i = 0; i < allProducts.length; i++) {
     if (allProducts[i].name === chosenImage) {
-      allProducts[i].clicks++;
+      allProducts[i].clicks +=1;
     }
     if (totalClick === 2) {
       containerEl.removeEventListener('click', handleClick, true);
       containerEl.remove();
-      chartRender();
-    }
 
-    displayPics();
+    }
     parentEl.innerHTML = '';
     render();
-
   }
+  displayPics();
   totalClick++;
+  allProducts.clicksData.push(allProducts.clicks);
+
+
 }
 
 
@@ -141,12 +140,15 @@ function handleClick() {
 
 
 
+
+
+
+
 displayPics();
-allProducts.nameData = [];
-allProducts.viewsData = [];
-allProducts.clicksData = [];
-displayPics();
+
+
 function getChartData(){
+
   for(var i = 0; i<allProducts.length;i++){
     allProducts.nameData.push(allProducts[i].name);
     allProducts.clicksData.push(allProducts[i].clicks);
@@ -193,6 +195,11 @@ var chartRender= function(){
   });
 };
 
+allProducts.clicks = [];
+allProducts.nameData = [];
+allProducts.viewsData = [];
+allProducts.clicksData = [];
+
 
 
 // Product.data = {
@@ -210,6 +217,9 @@ var chartRender= function(){
 
 //   ]
 // };
+
+
+
 var parentEl = document.getElementById('parentElement');
 
 var child = document.createElement('h1');
@@ -218,7 +228,7 @@ parentEl.appendChild(child);
 function render() {
   for( var i = 0; i<allProducts.length; i++) {
     var childEl = document.createElement('li');
-    childEl.textContent = `Product...${allProducts[i].name}     Views... ${allProducts[i].views}     Popularity...${allProducts[i].clicks}`;
+    childEl.textContent = `Product...  ${allProducts[i].name}     Views... ${allProducts[i].views}     Clicks...${allProducts[i].clicks}`;
     parentEl.appendChild(childEl);
   }
 
@@ -226,4 +236,13 @@ function render() {
 }
 containerEl.addEventListener('click', handleClick, true);
 chartRender();
+
+
+
+// var data = [];
+
+// function Data(){
+
+// }
+
 
