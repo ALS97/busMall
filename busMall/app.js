@@ -119,31 +119,63 @@ function handleClick() {
     if (allProducts[i].name === chosenImage) {
       allProducts[i].clicks +=1;
     }
-    if (totalClick === 2) {
-      containerEl.removeEventListener('click', handleClick, true);
-      containerEl.remove();
-
-    }
-    parentEl.innerHTML = '';
-    render();
   }
+  if (totalClick === 2) {
+    containerEl.removeEventListener('click', handleClick, true);
+    containerEl.remove();
+
+
+  }
+  parentEl.innerHTML = '';
+  render();
+
+  allProducts.clicksData.push(allProducts.clicks);
   displayPics();
   totalClick++;
-  allProducts.clicksData.push(allProducts.clicks);
+  chartRender();
+
 
 
 }
+allProducts.clicks = [];
+allProducts.nameData = [];
+allProducts.viewsData = [];
+allProducts.clicksData = [];
 
 
 
+// Product.data = {
+//   labels:Product.nameData,
+//   datasets:[{
+//     fillColor:'rgba (220,220,220,0.75)',
+//     strokeColor: 'rgba(220,220,220,1)',
+//     data:Product.viewsData
+//   },
+//   {
+//     fillColor: 'rgba(220,220,220,0.75)',
+//     strokeColor:'rgba(220,220,220,1)',
+//     data: Product.clicksData
+//   }
+
+//   ]
+// };
 
 
 
+var parentEl = document.getElementById('parentElement');
+
+var child = document.createElement('h1');
+child.textContent = 'Data: ';
+parentEl.appendChild(child);
+function render() {
+  for( var i = 0; i<allProducts.length; i++) {
+    var childEl = document.createElement('li');
+    childEl.textContent = `Product...  ${allProducts[i].name}     Views... ${allProducts[i].views}     Clicks...${allProducts[i].clicks}`;
+    parentEl.appendChild(childEl);
+  }
 
 
-
-
-
+}
 displayPics();
 
 
@@ -195,47 +227,9 @@ var chartRender= function(){
   });
 };
 
-allProducts.clicks = [];
-allProducts.nameData = [];
-allProducts.viewsData = [];
-allProducts.clicksData = [];
 
-
-
-// Product.data = {
-//   labels:Product.nameData,
-//   datasets:[{
-//     fillColor:'rgba (220,220,220,0.75)',
-//     strokeColor: 'rgba(220,220,220,1)',
-//     data:Product.viewsData
-//   },
-//   {
-//     fillColor: 'rgba(220,220,220,0.75)',
-//     strokeColor:'rgba(220,220,220,1)',
-//     data: Product.clicksData
-//   }
-
-//   ]
-// };
-
-
-
-var parentEl = document.getElementById('parentElement');
-
-var child = document.createElement('h1');
-child.textContent = 'Data: ';
-parentEl.appendChild(child);
-function render() {
-  for( var i = 0; i<allProducts.length; i++) {
-    var childEl = document.createElement('li');
-    childEl.textContent = `Product...  ${allProducts[i].name}     Views... ${allProducts[i].views}     Clicks...${allProducts[i].clicks}`;
-    parentEl.appendChild(childEl);
-  }
-
-
-}
 containerEl.addEventListener('click', handleClick, true);
-chartRender();
+
 
 
 
