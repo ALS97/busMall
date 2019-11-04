@@ -121,7 +121,7 @@ function handleClick() {
       allProducts[i].clicks += 1;
     }
   }
-  if (totalClick === 4) {
+  if (totalClick === 24) {
     containerEl.removeEventListener('click', handleClick, true);
     containerEl.remove();
     localStorage.setItem('storedProducts', JSON.stringify(Product.allProducts));
