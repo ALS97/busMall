@@ -13,6 +13,21 @@ body{
 }
  .row{
     display:inline-block;
-    width:320px;
+    align-content: center;
+    width:400px;
     height: 100%;
+    border: black solid 10px;
+    margin:30px;
+    padding: 20px;
+    
+    
 }
+/* #left{
+    border: black solid 5px;
+}
+#center{
+    border: black solid 5px;
+}
+#right{
+    border: black solid 5px;
+} */

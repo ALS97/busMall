@@ -78,13 +78,7 @@ new Product('breakfast');
 new Product('bubblegum');
 new Product('chair');
 
-if (localStorage.getItem('storedProducts') !== null) {
-  console.log('Data found');
-  Product.allProducts = JSON.parse(localStorage.getItem('storedProducts'));
-} else {
-  console.log('Not found');
-  localStorage.setItem('storedProducts', JSON.stringify(Product.allProducts));
-}
+
 
 
 // getChartData();
@@ -124,25 +118,34 @@ function handleClick() {
 
   for (var i = 0; i < allProducts.length; i++) {
     if (allProducts[i].name === chosenImage) {
-      allProducts[i].clicks +=1;
+      allProducts[i].clicks += 1;
     }
   }
-  if (totalClick === 2) {
+  if (totalClick === 4) {
     containerEl.removeEventListener('click', handleClick, true);
     containerEl.remove();
     localStorage.setItem('storedProducts', JSON.stringify(Product.allProducts));
-
-
+    chartRender();
   }
   parentEl.innerHTML = '';
-  render();
 
-  allProducts.clicksData.push(allProducts.clicks);
+
+
+  // allProducts.clicksData.push(allProducts.clicks);
   displayPics();
   totalClick++;
-  
 
 
+  if (localStorage.getItem('storedProducts') !== null) {
+    console.log('Data found');
+    var storedData = localStorage.getItem('storedProducts');
+    var parsedData = JSON.parse(storedData);
+    new Product(parsedData);
+    localStorage.setItem('storedProducts', JSON.stringify(Product.allProducts));
+  } else {
+    console.log('Not found');
+    localStorage.setItem('storedProducts', JSON.stringify(Product.allProducts));
+  }
 
 }
 
@@ -177,7 +180,7 @@ var child = document.createElement('h1');
 child.textContent = 'Data: ';
 parentEl.appendChild(child);
 function render() {
-  for( var i = 0; i<allProducts.length; i++) {
+  for (var i = 0; i < allProducts.length; i++) {
     var childEl = document.createElement('li');
     childEl.textContent = `Product...  ${allProducts[i].name}     Views... ${allProducts[i].views}     Clicks...${allProducts[i].clicks}`;
     parentEl.appendChild(childEl);
@@ -188,16 +191,17 @@ function render() {
 displayPics();
 
 
-function getChartData(){
+function getChartData() {
 
-  for(var i = 0; i < allProducts.length;i++){
+  for (var i = 0; i < allProducts.length; i++) {
     allProducts.nameData.push(allProducts[i].name);
     allProducts.clicksData.push(allProducts[i].clicks);
   }
 }
-var chartRender= function(){
-  getChartData();
+
+var chartRender = function () {
   var ctx = document.getElementById('myChart').getContext('2d');
+  getChartData();
   var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -239,8 +243,9 @@ var chartRender= function(){
 
 containerEl.addEventListener('click', handleClick, true);
 
-chartRender();
 
+
+// chartRender();
 
 // var data = [];
 
