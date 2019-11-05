@@ -124,9 +124,9 @@ function handleClick() {
   if (totalClick === 24) {
     containerEl.removeEventListener('click', handleClick, true);
     containerEl.remove();
-    localStorage.setItem('storedProducts', JSON.stringify(Product.allProducts));
     chartRender();
   }
+  localStorage.setItem('storedProducts', JSON.stringify(Product.allProducts));
   parentEl.innerHTML = '';
 
 
