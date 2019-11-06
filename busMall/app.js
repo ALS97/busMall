@@ -125,29 +125,30 @@ function handleClick() {
     containerEl.removeEventListener('click', handleClick, true);
     containerEl.remove();
     chartRender();
+    allProducts.clicksData.push(allProducts.clicks);
+    localStorage.setItem('storedProducts', JSON.stringify(allProducts.nameData));
+    localStorage.setItem('storedProduct', JSON.stringify(allProducts.clicksData));
   }
-  localStorage.setItem('storedProducts', JSON.stringify(Product.allProducts));
   parentEl.innerHTML = '';
-
-
-
-  // allProducts.clicksData.push(allProducts.clicks);
   displayPics();
   totalClick++;
 
-
-  if (localStorage.getItem('storedProducts') !== null) {
-    console.log('Data found');
-    var storedData = localStorage.getItem('storedProducts');
-    var parsedData = JSON.parse(storedData);
-    new Product(parsedData);
-    localStorage.setItem('storedProducts', JSON.stringify(Product.allProducts));
-  } else {
-    console.log('Not found');
-    localStorage.setItem('storedProducts', JSON.stringify(Product.allProducts));
-  }
+  
+  
 
 }
+// if (localStorage.getItem('storedProducts') !== null) {
+//   console.log('Data found');
+//   var storedData = localStorage.getItem('storedProducts');
+//   var parsedData = JSON.parse(storedData);
+//   new Product(parsedData);
+//   localStorage.setItem('storedProducts', JSON.stringify(allProducts.nameData));
+//   localStorage.setItem('storedProducts', JSON.stringify(allProducts.clicksData));
+// } else {
+//   console.log('Not found');
+//   localStorage.setItem('storedProducts', JSON.stringify(allProducts.nameData));
+//   localStorage.setItem('storedProducts', JSON.stringify(allProducts.clicksData));
+// }
 
 allProducts.clicks = [];
 allProducts.nameData = [];
@@ -239,6 +240,7 @@ var chartRender = function () {
     }
   });
 };
+
 
 
 containerEl.addEventListener('click', handleClick, true);
